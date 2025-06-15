@@ -1,12 +1,15 @@
-from typing import List
-from collections import defaultdict
+from collections import Counter
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        #First I am going to play around with defaultdict to see how it works
-        pass
-
-    playing = defaultdict(list)
-    playing['a'].append('b')
-    playing['a'].append('c')
-    print(playing)
+        if len(strs) <= 1:
+            return [strs]
+        
+        helper_dict = {}
+        for word in strs:
+            key = tuple(sorted(Counter(word).items()))
+            if key not in helper_dict:
+                helper_dict[key] = []
+            helper_dict[key].append(word)
+            
+        return list(helper_dict.values())
